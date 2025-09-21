@@ -8,7 +8,7 @@ This project is all about "vibe coding" — building things for the joy of it, l
 
 You can view the live project hosted on GitHub Pages here:
 
-**[https://github.com/vinay-ghate/TheWebToolBox](https://github.com/vinay-ghate/TheWebToolBox/)**
+**[https://github.com/vinay-ghate/TheWebToolBox](https://vinay-ghate.github.io/TheWebToolBox/)**
 
 ## ✨ Features
 
