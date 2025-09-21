@@ -8,7 +8,7 @@
     "category": "Utility"
   },
 {
-    "id": 1,
+    "id": 2,
     "title": "Text2Qr",
     "description": "A utility to generate custom QR codes for text, URLs, and UPI payments with different color options.",
     "url": "Text2Qr/index.html",
