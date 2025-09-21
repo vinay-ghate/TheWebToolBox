@@ -1,12 +1,15 @@
-/* Using the "Electric Ocean 🌊" Palette */
+/* Using CSS variables for easy theme management */
 :root {
-    --main-bg: #1a1a2e;
-    --card-bg: #16213e;
-    --text-primary: #ffffff;
-    --text-secondary: #A0A0A0;
-    --accent-color: #0F3460;
+    --bg-color: #1a1a2e;
+    --primary-accent-color: #0f3460;
+    --secondary-accent-color: #e94560;
+    --text-color: #ffffff;
+    --text-muted-color: #a7a9be;
+    --block-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --border-radius: 16px;
 }
 
+/* Basic Reset & Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,110 +18,114 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--main-bg);
-    color: var(--text-primary);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
+/* Header Styling */
 header {
     text-align: center;
-    margin-bottom: 3rem;
+    padding: 3rem 1rem;
+    background-image: linear-gradient(45deg, var(--primary-accent-color), var(--bg-color));
 }
 
 header h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
-/* Grid for the tool cards */
+header p {
+    font-size: 1.1rem;
+    color: var(--text-muted-color);
+}
+
+/* Main Content & Tool Grid Layout */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
 .tool-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
 }
 
-/* Individual tool card styling */
-.tool-card {
-    position: relative;
-    display: block;
-    height: 250px;
+/* Individual Tool Block Styling */
+.tool-block {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--border-radius);
     overflow: hidden;
-    border-radius: 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+    background-position: center;
     text-decoration: none;
-    background-color: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: var(--block-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.tool-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+.tool-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
-.card-background {
+/* Gradient Overlay for Text Readability */
+.tool-block::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.4s ease;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 60%);
+    z-index: 1;
 }
 
-.tool-card:hover .card-background {
-    transform: scale(1.1);
-}
-
-/* Gradient overlay for text readability */
-.card-content {
+.block-content {
+    padding: 1rem;
     position: relative;
     z-index: 2;
-    padding: 1.5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background: linear-gradient(to top, rgba(22, 33, 62, 0.95) 20%, rgba(22, 33, 62, 0.1) 80%);
-    color: var(--text-primary);
 }
 
-.card-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+.block-content h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
-.card-description {
+.block-content p {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-muted-color);
     font-weight: 400;
+    line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
 /* Footer Styling */
 footer {
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 1rem;
     margin-top: 2rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--text-muted-color);
+    border-top: 1px solid var(--primary-accent-color);
 }
 
 footer a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 600;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
+  color: var(--secondary-accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
-    border-color: var(--text-primary);
+  color: var(--text-color);
+  text-decoration: underline;
 }
