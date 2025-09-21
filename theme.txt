@@ -1,0 +1,5 @@
+Palette 1: Electric Ocean 🌊.
+
+Main Background: <strong>#1a1a2e</strong>
+Card/UI Background: <strong>#16213e</strong>
+Secondary Text: <strong>#A0A0A0</strong>

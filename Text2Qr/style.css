@@ -1,0 +1,308 @@
+/* General Styling */
+:root {
+    --bg-dark: #1a1a2e;
+    --card-bg: #16213e;
+    --primary-color: #4d54ff;
+    --secondary-color: #56ffc5;
+    --text-light: #e0e0e0;
+    --text-dark: #a0a0a0;
+    --border-color: #0f3460;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Back Button Styling */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--card-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.back-button svg {
+    stroke: var(--text-dark);
+    transition: stroke 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+}
+
+.back-button:hover svg {
+    stroke: white;
+}
+
+
+/* Main Container and Card Layout */
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Left Side: Controls */
+.controls h1 {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-link {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-dark);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-link.active {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Options Grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.option-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-item label {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+input[type="color"]::-moz-color-swatch {
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* Action Buttons */
+.action-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#generate-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+#generate-btn:hover {
+    opacity: 0.9;
+}
+
+.secondary {
+    background-color: var(--border-color);
+    color: var(--text-light);
+    margin-top: 10px;
+}
+
+.secondary:hover {
+    background-color: #1f487e;
+}
+
+/* Right Side: QR Code Output */
+.output {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qr-code-container {
+    width: 280px;
+    height: 280px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#qr-code-container canvas, #qr-code-container svg {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 8px;
+}
+
+#qr-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-dark);
+    text-align: center;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-dark);
+}
+#qr-placeholder svg {
+    stroke: var(--text-dark);
+}
+
+/* Utility and Validation */
+.hidden {
+    display: none;
+}
+
+.validation-error {
+    color: #ff5c5c;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 1em;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        padding-top: 70px;
+    }
+    
+    .back-button {
+        top: 15px;
+        left: 15px;
+    }
+
+    .card {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    
+    .controls h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .subtitle {
+        text-align: center;
+    }
+
+    .output {
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    #qr-code-container {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+}
