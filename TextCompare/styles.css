@@ -1,0 +1,44 @@
+:root {
+    --bg-color: #f0f2f5;
+    --primary-accent-color: #ffffff;
+    --secondary-accent-color: #1877f2;
+    --text-color: #1c1e21;
+    --text-muted-color: #606770;
+    --block-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --border-radius: 16px;
+}
+
+html.dark {
+    --bg-color: #1a1a2e;
+    --primary-accent-color: #0f3460;
+    --secondary-accent-color: #e94560;
+    --text-color: #ffffff;
+    --text-muted-color: #a7a9be;
+    --block-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.diff-output,
+.diff-output-side {
+    font-family: 'Fira Code', monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.diff-output del,
+.diff-output-side del {
+    background-color: #e9456044;
+    text-decoration: none;
+}
+
+.diff-output ins,
+.diff-output-side ins {
+    background-color: #4CAF5044;
+    text-decoration: none;
+}

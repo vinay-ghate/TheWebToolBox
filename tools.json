@@ -9,10 +9,10 @@
   },
 {
     "id": 2,
-    "title": "Text2Qr",
-    "description": "A utility to generate custom QR codes for text, URLs, and UPI payments with different color options.",
-    "url": "Text2Qr/index.html",
-    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-lm44rUGXCT0llp5AO5ga8RtutjXUMm9x-g&s",
+    "title": "TextCompare",
+    "description": "An advanced tool to compare, analyze, and visualize text differences.",
+    "url": "TextCompare/index.html",
+    "imageUrl": "https://thumbs.dreamstime.com/b/symbol-scales-logo-comparison-two-opposites-icon-to-compare-products-162637632.jpg",
     "category": "Utility"
   }
 ]
