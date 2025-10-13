@@ -20,7 +20,15 @@
     "title": "WireFrames",
     "description": "Create beautiful mermaid diagrams with ease. Design flowcharts, sequence diagrams, and more with export capabilities.",
     "url": "WireFrames/index.html",
-    "imageUrl": "https://forum.obsidian.md/uploads/default/original/3X/c/b/cb392fc24c337ab2f96117074c7ad59db498a8b4.png",
+    "imageUrl": "https://forum.obsidian.md/uploads/default/original/3X/c/b/c/cb392fc24c337ab2f96117074c7ad59db498a8b4.png",
     "category": "Design"
+  },
+  {
+    "id": 4,
+    "title": "JsonFormattor",
+    "description": "Format, beautify, validate, and minify JSON with auto-fix for common errors like single quotes and missing commas.",
+    "url": "JsonFormattor/index.html",
+    "imageUrl": "https://cdn-icons-png.flaticon.com/512/136/136525.png",
+    "category": "Utility"
   }
 ]

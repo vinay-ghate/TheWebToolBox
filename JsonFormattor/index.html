@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsonFormattor - JSON Formatter & Beautifier</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../index.html" class="back-button" title="Back to Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </a>
+
+    <div class="container">
+        <div class="card">
+            <div class="controls">
+                <h1>JsonFormattor</h1>
+                <p class="subtitle">Format, beautify, and validate JSON with error fixing.</p>
+
+                <div class="tabs">
+                    <button class="tab-link active" data-tab="format-tab">Format & Beautify</button>
+                    <button class="tab-link" data-tab="minify-tab">Minify</button>
+                    <button class="tab-link" data-tab="validate-tab">Validate</button>
+                </div>
+
+                <div id="format-tab" class="tab-content active">
+                    <label for="json-input">Paste your JSON here:</label>
+                    <textarea id="json-input" placeholder='{"name": "example", "value": 123}'></textarea>
+                </div>
+                
+                <div id="minify-tab" class="tab-content">
+                    <label for="json-minify-input">Paste your JSON to minify:</label>
+                    <textarea id="json-minify-input" placeholder='{"name": "example", "value": 123}'></textarea>
+                </div>
+
+                <div id="validate-tab" class="tab-content">
+                    <label for="json-validate-input">Paste your JSON to validate:</label>
+                    <textarea id="json-validate-input" placeholder='{"name": "example", "value": 123}'></textarea>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-item">
+                        <label for="indent-size">Indent Size</label>
+                        <select id="indent-size">
+                            <option value="2" selected>2 spaces</option>
+                            <option value="4">4 spaces</option>
+                            <option value="tab">Tab</option>
+                        </select>
+                    </div>
+                    <div class="option-item">
+                        <label>
+                            <input type="checkbox" id="auto-fix" checked>
+                            Auto-fix common errors
+                        </label>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message"></div>
+                <div id="success-message" class="success-message"></div>
+
+                <button id="process-btn" class="action-button">Format JSON</button>
+                <button id="copy-btn" class="action-button secondary hidden">Copy Result</button>
+                <button id="clear-btn" class="action-button tertiary">Clear All</button>
+            </div>
+
+            <div class="output">
+                <div class="output-header">
+                    <h3>Result</h3>
+                    <div class="stats">
+                        <span id="char-count">0 characters</span>
+                        <span id="line-count">0 lines</span>
+                    </div>
+                </div>
+                <div id="json-output-container">
+                    <pre id="json-output"><code>Your formatted JSON will appear here</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
