@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WireFrames - Mermaid Diagram Creator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#4d54ff',
+                primaryTextColor: '#e0e0e0',
+                primaryBorderColor: '#56ffc5',
+                lineColor: '#56ffc5',
+                secondaryColor: '#16213e',
+                tertiaryColor: '#1a1a2e',
+                background: '#1a1a2e',
+                mainBkg: '#16213e',
+                secondBkg: '#0f3460',
+                tertiaryBkg: '#1a1a2e'
+            }
+        });
+        window.mermaid = mermaid;
+    </script>
+</head><body>
+
+    <a href="../index.html" class="back-button" title="Back to Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>WireFrames</h1>
+            <p class="subtitle">Create beautiful mermaid diagrams with ease</p>
+        </div>
+
+        <div class="main-content">
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <h2>Diagram Code</h2>
+                    <div class="header-controls">
+                        <select id="diagram-type" class="diagram-select">
+                            <option value="flowchart">Flowchart</option>
+                            <option value="sequence">Sequence Diagram</option>
+                            <option value="class">Class Diagram</option>
+                            <option value="state">State Diagram</option>
+                            <option value="er">Entity Relationship</option>
+                            <option value="gantt">Gantt Chart</option>
+                            <option value="pie">Pie Chart</option>
+                            <option value="journey">User Journey</option>
+                        </select>
+                        <button id="insert-template" class="template-btn">Insert Template</button>
+                    </div>
+                </div>
+                
+                <textarea id="mermaid-code" placeholder="Enter your mermaid diagram code here...">flowchart TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> B
+    C --> E[End]</textarea>
+                
+                <div class="editor-controls">
+                    <button id="render-btn" class="action-button primary">Render Diagram</button>
+                    <button id="clear-btn" class="action-button secondary">Clear</button>
+                    <div class="file-controls">
+                        <input type="file" id="import-file" accept=".mmd,.txt" style="display: none;">
+                        <button id="import-btn" class="action-button secondary">Import</button>
+                        <button id="export-code-btn" class="action-button secondary">Export Code</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="panel-header">
+                    <h2>Preview</h2>
+                    <div class="preview-controls">
+                        <button id="zoom-in" class="zoom-btn">+</button>
+                        <button id="zoom-out" class="zoom-btn">-</button>
+                        <button id="zoom-reset" class="zoom-btn">Reset</button>
+                        <button id="export-svg-btn" class="action-button primary">Export SVG</button>
+                        <button id="export-png-btn" class="action-button primary">Export PNG</button>
+                    </div>
+                </div>
+                
+                <div id="diagram-container">
+                    <div id="diagram-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21,15 16,10 5,21"></polyline>
+                        </svg>
+                        <p>Your diagram will appear here</p>
+                        <small>Click "Render Diagram" to generate</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-panel" id="error-panel">
+            <div class="error-content">
+                <h3>Diagram Error</h3>
+                <p id="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

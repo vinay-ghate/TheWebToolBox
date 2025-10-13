@@ -7,12 +7,20 @@
     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-lm44rUGXCT0llp5AO5ga8RtutjXUMm9x-g&s",
     "category": "Utility"
   },
-{
+  {
     "id": 2,
     "title": "TextCompare",
     "description": "An advanced tool to compare, analyze, and visualize text differences.",
     "url": "TextCompare/index.html",
     "imageUrl": "https://thumbs.dreamstime.com/b/symbol-scales-logo-comparison-two-opposites-icon-to-compare-products-162637632.jpg",
     "category": "Utility"
+  },
+  {
+    "id": 3,
+    "title": "WireFrames",
+    "description": "Create beautiful mermaid diagrams with ease. Design flowcharts, sequence diagrams, and more with export capabilities.",
+    "url": "WireFrames/index.html",
+    "imageUrl": "https://forum.obsidian.md/uploads/default/original/3X/c/b/cb392fc24c337ab2f96117074c7ad59db498a8b4.png",
+    "category": "Design"
   }
 ]
