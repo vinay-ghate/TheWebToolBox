@@ -58,45 +58,52 @@ body {
 
 /* Main Container */
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding-top: 60px;
+    padding: 60px 10px 20px 10px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .header h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--text-light);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .subtitle {
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 /* Main Content Layout */
 .main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 20px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 /* Panel Styling */
 .editor-panel,
 .preview-panel {
     background-color: var(--card-bg);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    height: 600px;
+    height: calc(100vh - 200px);
+    max-height: 500px;
+    min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .panel-header {
@@ -221,7 +228,7 @@ body {
 }
 
 .zoom-btn {
-    width: 40px;
+    min-width: 40px;
     height: 35px;
     border: none;
     border-radius: 6px;
@@ -234,6 +241,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 8px;
 }
 
 .zoom-btn:hover {
@@ -244,17 +252,26 @@ body {
 #diagram-container {
     flex: 1;
     background-color: var(--bg-dark);
-    border-radius: 10px;
-    padding: 20px;
-    overflow: auto;
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--border-color);
-    min-height: 400px;
-    max-height: 600px;
-    scroll-behavior: smooth;
+    min-height: 250px;
+    width: 100%;
+    max-width: 100%;
+    cursor: grab;
+}
+
+#diagram-container:active {
+    cursor: grabbing;
+}
+
+#diagram-container.zooming {
+    cursor: zoom-in;
 }
 
 /* Custom scrollbar styling */
@@ -282,14 +299,18 @@ body {
     background: var(--border-color);
 }
 
-/* Diagram Wrapper for better scrolling */
+/* Diagram Wrapper for infinite board */
 .diagram-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    min-width: max-content;
-    min-height: max-content;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
 }
 
 #diagram-placeholder {
@@ -325,12 +346,18 @@ body {
     align-items: center;
     transition: transform 0.3s ease;
     transform-origin: center center;
-    padding: 100px;
+    padding: 0;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
 }
 
 .mermaid svg {
     display: block;
     margin: auto;
+    max-width: none;
+    max-height: none;
 }
 
 /* Error Panel */
@@ -359,16 +386,38 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 60px 15px 20px 15px;
+    }
+    
+    .main-content {
+        gap: 15px;
+    }
+    
+    .editor-panel,
+    .preview-panel {
+        padding: 18px;
+        max-height: 450px;
+    }
+}
+
 @media (max-width: 1024px) {
     .main-content {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
     }
     
     .editor-panel,
     .preview-panel {
         height: auto;
-        min-height: 400px;
+        min-height: 350px;
+        max-height: 400px;
+    }
+    
+    .header h1 {
+        font-size: 2.2rem;
     }
 }
 
@@ -378,25 +427,48 @@ body {
         padding-top: 70px;
     }
     
+    .container {
+        padding: 50px 10px 15px 10px;
+    }
+    
     .back-button {
         top: 15px;
         left: 15px;
     }
     
     .header h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+    
+    .header {
+        margin-bottom: 15px;
+    }
+    
+    .editor-panel,
+    .preview-panel {
+        padding: 15px;
+        min-height: 300px;
+        max-height: 350px;
     }
     
     .panel-header {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
         align-items: flex-start;
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+    }
+    
+    .panel-header h2 {
+        font-size: 1.3rem;
     }
     
     .header-controls,
     .preview-controls {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
     }
     
     .editor-controls {
@@ -415,12 +487,76 @@ body {
         width: 100%;
         margin-bottom: 5px;
         text-align: center;
+        padding: 10px 16px;
+        font-size: 0.85rem;
     }
     
     .file-controls .action-button {
         width: auto;
         flex: 1;
-        min-width: 80px;
+        min-width: 70px;
+    }
+    
+    .zoom-btn {
+        width: 36px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    #diagram-container {
+        min-height: 200px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 45px 8px 12px 8px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .editor-panel,
+    .preview-panel {
+        padding: 12px;
+        min-height: 280px;
+        max-height: 320px;
+    }
+    
+    .panel-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .action-button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .zoom-btn {
+        width: 32px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+    
+    #mermaid-code {
+        font-size: 0.8rem;
+        padding: 12px;
+    }
+    
+    .diagram-select {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .template-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
     }
 }
 

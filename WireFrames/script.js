@@ -14,12 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const diagramPlaceholder = document.getElementById('diagram-placeholder');
     const errorPanel = document.getElementById('error-panel');
     const errorMessage = document.getElementById('error-message');
-    const zoomInBtn = document.getElementById('zoom-in');
-    const zoomOutBtn = document.getElementById('zoom-out');
     const zoomResetBtn = document.getElementById('zoom-reset');
 
     let currentZoom = 1;
     let diagramCounter = 0;
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
 
     // Diagram Templates
     const templates = {
@@ -163,16 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 nodes: [diagramDiv]
             });
 
-            // Setup scrollable area for large diagrams
-            setupScrollableArea();
-
-            // Reset zoom
-            currentZoom = 1;
-            const mermaidDiv = diagramContainer.querySelector('.mermaid');
-            if (mermaidDiv) {
-                mermaidDiv.style.transform = `scale(${currentZoom})`;
-                mermaidDiv.style.transformOrigin = 'center center';
-            }
+            // Setup infinite board
+            setupInfiniteBoard();
 
         } catch (error) {
             console.error('Mermaid rendering error:', error);
@@ -198,37 +193,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * Setup scrollable area for large diagrams
+     * Update transform for infinite board
      */
-    const setupScrollableArea = () => {
-        const mermaidDiv = diagramContainer.querySelector('.mermaid');
-        const svgElement = mermaidDiv?.querySelector('svg');
-        
-        if (svgElement) {
-            // Get SVG dimensions
-            const bbox = svgElement.getBBox();
-            const svgWidth = bbox.width;
-            const svgHeight = bbox.height;
-            
-            // Add generous padding around the diagram for scrolling (3-4x the diagram size)
-            const scrollPadding = Math.max(svgWidth * 2, svgHeight * 2, 800);
-            
-            // Set wrapper dimensions to create scrollable area
-            const wrapper = diagramContainer.querySelector('.diagram-wrapper');
-            if (wrapper) {
-                wrapper.style.width = `${svgWidth + scrollPadding}px`;
-                wrapper.style.height = `${svgHeight + scrollPadding}px`;
-            }
-            
-            // Center the view on the diagram
-            setTimeout(() => {
-                const containerRect = diagramContainer.getBoundingClientRect();
-                const scrollLeft = (svgWidth + scrollPadding - containerRect.width) / 2;
-                const scrollTop = (svgHeight + scrollPadding - containerRect.height) / 2;
-                diagramContainer.scrollLeft = Math.max(0, scrollLeft);
-                diagramContainer.scrollTop = Math.max(0, scrollTop);
-            }, 100);
+    const updateTransform = () => {
+        const wrapper = diagramContainer.querySelector('.diagram-wrapper');
+        if (wrapper) {
+            wrapper.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
         }
+    };
+
+
+
+    /**
+     * Setup infinite board interactions
+     */
+    const setupInfiniteBoard = () => {
+        // Reset pan and zoom
+        panX = 0;
+        panY = 0;
+        currentZoom = 1;
+        updateTransform();
     };
 
     /**
@@ -240,6 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
         diagramContainer.appendChild(diagramPlaceholder);
         hideError();
         currentZoom = 1;
+        panX = 0;
+        panY = 0;
     };
 
     /**
@@ -440,55 +426,71 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Zoom functions
      */
-    const zoomIn = () => {
-        const mermaidDiv = diagramContainer.querySelector('.mermaid');
-        if (mermaidDiv && currentZoom < 3) {
-            currentZoom += 0.2;
-            mermaidDiv.style.transform = `scale(${currentZoom})`;
-            mermaidDiv.style.transformOrigin = 'center center';
-            updateScrollableArea();
-        }
-    };
-
-    const zoomOut = () => {
-        const mermaidDiv = diagramContainer.querySelector('.mermaid');
-        if (mermaidDiv && currentZoom > 0.4) {
-            currentZoom -= 0.2;
-            mermaidDiv.style.transform = `scale(${currentZoom})`;
-            mermaidDiv.style.transformOrigin = 'center center';
-            updateScrollableArea();
-        }
-    };
-
     const zoomReset = () => {
-        const mermaidDiv = diagramContainer.querySelector('.mermaid');
-        if (mermaidDiv) {
-            currentZoom = 1;
-            mermaidDiv.style.transform = `scale(${currentZoom})`;
-            mermaidDiv.style.transformOrigin = 'center center';
-            setupScrollableArea(); // Reset to original scroll area
+        currentZoom = 1;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+    };
+
+    /**
+     * Mouse wheel zoom handler
+     */
+    const handleWheel = (e) => {
+        e.preventDefault();
+        
+        const rect = diagramContainer.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        
+        // Calculate zoom
+        const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+        const newZoom = Math.min(Math.max(currentZoom * zoomFactor, 0.1), 5);
+        
+        if (newZoom !== currentZoom) {
+            // Calculate new pan to zoom towards mouse position
+            const zoomRatio = newZoom / currentZoom;
+            const containerCenterX = rect.width / 2;
+            const containerCenterY = rect.height / 2;
+            
+            panX = (panX - (mouseX - containerCenterX)) * zoomRatio + (mouseX - containerCenterX);
+            panY = (panY - (mouseY - containerCenterY)) * zoomRatio + (mouseY - containerCenterY);
+            
+            currentZoom = newZoom;
+            updateTransform();
         }
     };
 
     /**
-     * Update scrollable area when zooming
+     * Mouse pan handlers
      */
-    const updateScrollableArea = () => {
-        const mermaidDiv = diagramContainer.querySelector('.mermaid');
-        const svgElement = mermaidDiv?.querySelector('svg');
-        const wrapper = diagramContainer.querySelector('.diagram-wrapper');
-        
-        if (svgElement && wrapper) {
-            const bbox = svgElement.getBBox();
-            const scaledWidth = bbox.width * currentZoom;
-            const scaledHeight = bbox.height * currentZoom;
-            
-            // Maintain generous padding for scrolling at any zoom level
-            const scrollPadding = Math.max(scaledWidth * 2, scaledHeight * 2, 800);
-            
-            wrapper.style.width = `${scaledWidth + scrollPadding}px`;
-            wrapper.style.height = `${scaledHeight + scrollPadding}px`;
+    const handleMouseDown = (e) => {
+        if (e.button === 0) { // Left mouse button
+            isPanning = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+            diagramContainer.style.cursor = 'grabbing';
         }
+    };
+
+    const handleMouseMove = (e) => {
+        if (isPanning) {
+            const deltaX = e.clientX - lastMouseX;
+            const deltaY = e.clientY - lastMouseY;
+            
+            panX += deltaX;
+            panY += deltaY;
+            
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+            
+            updateTransform();
+        }
+    };
+
+    const handleMouseUp = () => {
+        isPanning = false;
+        diagramContainer.style.cursor = 'grab';
     };
 
     // Event Listeners
@@ -500,9 +502,13 @@ document.addEventListener('DOMContentLoaded', () => {
     exportCodeBtn.addEventListener('click', exportCode);
     exportSvgBtn.addEventListener('click', exportSvg);
     exportPngBtn.addEventListener('click', () => exportPng().catch(console.error));
-    zoomInBtn.addEventListener('click', zoomIn);
-    zoomOutBtn.addEventListener('click', zoomOut);
     zoomResetBtn.addEventListener('click', zoomReset);
+
+    // Infinite board interactions
+    diagramContainer.addEventListener('wheel', handleWheel, { passive: false });
+    diagramContainer.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
 
     // Keyboard shortcuts
     mermaidCodeTextarea.addEventListener('keydown', (e) => {
