@@ -30,5 +30,13 @@
     "url": "JsonFormattor/index.html",
     "imageUrl": "https://cdn-icons-png.flaticon.com/512/136/136525.png",
     "category": "Utility"
+  },
+  {
+    "id": 5,
+    "title": "DiagramCreator",
+    "description": "Create low fidelity diagrams and wireframes with drag-and-drop interface. Features shapes, UI elements, layout components with customizable dimensions and colors.",
+    "url": "DiagramCreator/index.html",
+    "imageUrl": "https://cdn-icons-png.flaticon.com/512/2920/2920277.png",
+    "category": "Design"
   }
 ]

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiagramCreator - Low Fidelity Diagram Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../index.html" class="back-button" title="Back to Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>DiagramCreator</h1>
+            <p class="subtitle">Create low fidelity diagrams with drag and drop</p>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar-panel">
+                <div class="panel-header">
+                    <h2>Tools</h2>
+                </div>
+                
+                <div class="tool-sections">
+                    <div class="tool-section">
+                        <h3>Basic Shapes</h3>
+                        <div class="tool-grid">
+                            <div class="tool-item" data-shape="rectangle" title="Rectangle">
+                                <div class="shape-preview rectangle-preview"></div>
+                                <span>Rectangle</span>
+                            </div>
+                            <div class="tool-item" data-shape="circle" title="Circle">
+                                <div class="shape-preview circle-preview"></div>
+                                <span>Circle</span>
+                            </div>
+                            <div class="tool-item" data-shape="diamond" title="Diamond">
+                                <div class="shape-preview diamond-preview"></div>
+                                <span>Diamond</span>
+                            </div>
+                            <div class="tool-item" data-shape="triangle" title="Triangle">
+                                <div class="shape-preview triangle-preview"></div>
+                                <span>Triangle</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>UI Elements</h3>
+                        <div class="tool-grid">
+                            <div class="tool-item" data-shape="button" title="Button">
+                                <div class="shape-preview button-preview"></div>
+                                <span>Button</span>
+                            </div>
+                            <div class="tool-item" data-shape="input" title="Input Field">
+                                <div class="shape-preview input-preview"></div>
+                                <span>Input</span>
+                            </div>
+                            <div class="tool-item" data-shape="text" title="Text Label">
+                                <div class="shape-preview text-preview">T</div>
+                                <span>Text</span>
+                            </div>
+                            <div class="tool-item" data-shape="image" title="Image Placeholder">
+                                <div class="shape-preview image-preview"></div>
+                                <span>Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>Layout Elements</h3>
+                        <div class="tool-grid">
+                            <div class="tool-item" data-shape="container" title="Container">
+                                <div class="shape-preview container-preview"></div>
+                                <span>Container</span>
+                            </div>
+                            <div class="tool-item" data-shape="header" title="Header">
+                                <div class="shape-preview header-preview"></div>
+                                <span>Header</span>
+                            </div>
+                            <div class="tool-item" data-shape="sidebar" title="Sidebar">
+                                <div class="shape-preview sidebar-preview"></div>
+                                <span>Sidebar</span>
+                            </div>
+                            <div class="tool-item" data-shape="footer" title="Footer">
+                                <div class="shape-preview footer-preview"></div>
+                                <span>Footer</span>
+                            </div>
+                            <div class="tool-item" data-shape="card" title="Card">
+                                <div class="shape-preview card-preview"></div>
+                                <span>Card</span>
+                            </div>
+                            <div class="tool-item" data-shape="modal" title="Modal">
+                                <div class="shape-preview modal-preview"></div>
+                                <span>Modal</span>
+                            </div>
+                            <div class="tool-item" data-shape="navbar" title="Navigation Bar">
+                                <div class="shape-preview navbar-preview"></div>
+                                <span>Navbar</span>
+                            </div>
+                            <div class="tool-item" data-shape="grid" title="Grid Layout">
+                                <div class="shape-preview grid-preview"></div>
+                                <span>Grid</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>Connectors</h3>
+                        <div class="tool-grid">
+                            <div class="tool-item" data-shape="arrow" title="Arrow">
+                                <div class="shape-preview arrow-preview"></div>
+                                <span>Arrow</span>
+                            </div>
+                            <div class="tool-item" data-shape="line" title="Line">
+                                <div class="shape-preview line-preview"></div>
+                                <span>Line</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-controls">
+                    <div class="control-row">
+                        <button id="clear-canvas" class="control-btn secondary">Clear</button>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                        <button id="import-btn" class="control-btn secondary">Import</button>
+                    </div>
+                    <div class="control-row">
+                        <button id="export-btn" class="control-btn secondary">Export</button>
+                        <button id="export-image-btn" class="control-btn primary">Image</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-panel">
+                <div class="panel-header">
+                    <h2>Canvas</h2>
+                    <div class="canvas-info">
+                        <small>Scroll to zoom • Drag to move • Double-click to edit</small>
+                    </div>
+                </div>
+                
+                <div id="canvas-container">
+                    <svg id="diagram-canvas" width="100%" height="100%">
+                        <defs>
+                            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#0f3460" stroke-width="0.5" opacity="0.3"/>
+                            </pattern>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#56ffc5" />
+                            </marker>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                    </svg>
+                    
+                    <div id="canvas-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <path d="M9 9h6v6h-6z"></path>
+                            <path d="m9 1 3 8 3-8"></path>
+                        </svg>
+                        <p>Drag shapes from the toolbar to start creating</p>
+                        <small>Click and drag to move, double-click to edit text</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="properties-panel" id="properties-panel">
+            <div class="panel-header">
+                <h3>Properties</h3>
+                <button id="close-properties" class="close-btn">&times;</button>
+            </div>
+            <div class="properties-content">
+                <div class="property-group">
+                    <label for="element-text">Text:</label>
+                    <input type="text" id="element-text" placeholder="Enter text...">
+                </div>
+                <div class="property-group">
+                    <label for="element-color">Color:</label>
+                    <select id="element-color">
+                        <option value="#56ffc5">Green</option>
+                        <option value="#4d54ff">Blue</option>
+                        <option value="#ff5c5c">Red</option>
+                        <option value="#ffd700">Yellow</option>
+                        <option value="#ff8c00">Orange</option>
+                        <option value="#9370db">Purple</option>
+                        <option value="#e0e0e0">White</option>
+                    </select>
+                </div>
+                <div class="property-group">
+                    <label for="element-size">Size:</label>
+                    <input type="range" id="element-size" min="20" max="120" value="60" step="10">
+                    <span id="size-value">60px</span>
+                </div>
+                <div class="property-group">
+                    <label for="element-rotation">Rotation:</label>
+                    <input type="range" id="element-rotation" min="0" max="360" value="0" step="15">
+                    <span id="rotation-value">0°</span>
+                </div>
+                <div class="property-group" id="dimensions-group" style="display: none;">
+                    <label for="element-width">Width:</label>
+                    <input type="range" id="element-width" min="20" max="200" value="90" step="10">
+                    <span id="width-value">90px</span>
+                </div>
+                <div class="property-group" id="height-group" style="display: none;">
+                    <label for="element-height">Height:</label>
+                    <input type="range" id="element-height" min="20" max="200" value="60" step="10">
+                    <span id="height-value">60px</span>
+                </div>
+                <button id="delete-element" class="action-button secondary">Delete Element</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
