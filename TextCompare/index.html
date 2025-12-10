@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" x-data="textComparer" x-init="init()" :class="theme">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Text Compare - TextBuddy</title>
-    <meta name="description" content="A powerful client-side tool to compare text, view differences, and analyze statistics with multiple view modes and options.">
+    <meta name="description"
+        content="A powerful client-side tool to compare text, view differences, and analyze statistics with multiple view modes and options.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/diff@5.1.0/dist/diff.min.js"></script>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -32,7 +36,7 @@
             }
         }
     </script>
-    
+
     <link rel="stylesheet" href="styles.css">
 
 </head>
@@ -42,18 +46,32 @@
     <div class="max-w-screen-2xl mx-auto p-4 sm:p-6">
         <header class="flex justify-between items-start mb-6">
             <div>
-                <a href="../index.html" class="inline-flex items-center text-sm text-textMuted hover:text-textColor mb-2 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                <a href="../index.html"
+                    class="inline-flex items-center text-sm text-textMuted hover:text-textColor mb-2 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                            clip-rule="evenodd" />
                     </svg>
                     Main Page
                 </a>
                 <h1 class="text-3xl md:text-4xl font-bold">TextBuddy <span class="text-secondaryAccent">Pro</span></h1>
                 <p class="text-textMuted">An advanced tool to compare, analyze, and visualize text differences.</p>
             </div>
-            <button @click="toggleTheme()" class="p-2 mt-2 rounded-full bg-primaryAccent shadow-md hover:bg-opacity-80 transition" aria-label="Toggle theme">
-                <svg x-show="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                <svg x-show="theme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            <button @click="toggleTheme()"
+                class="p-2 mt-2 rounded-full bg-primaryAccent shadow-md hover:bg-opacity-80 transition"
+                aria-label="Toggle theme">
+                <svg x-show="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg x-show="theme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
             </button>
         </header>
 
@@ -61,9 +79,19 @@
             <div class="bg-primaryAccent rounded-custom shadow-custom p-4 flex flex-col">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold">Original Text</h2>
-                    <input type="file" @change="handleFileUpload($event, 'text1')" accept=".txt" class="text-xs">
+                    <label
+                        class="cursor-pointer flex items-center gap-2 border border-secondaryAccent text-secondaryAccent px-3 py-1 rounded-md hover:bg-secondaryAccent hover:text-white transition-colors text-xs uppercase tracking-wide font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        Upload
+                        <input type="file" @change="handleFileUpload($event, 'text1')" class="hidden">
+                    </label>
                 </div>
-                <textarea x-model="text1" rows="15" class="w-full flex-grow p-3 bg-bgColor rounded-lg focus:ring-2 focus:ring-secondaryAccent focus:outline-none resize-none font-mono text-sm"></textarea>
+                <textarea x-model="text1" rows="15"
+                    class="w-full flex-grow p-3 bg-bgColor rounded-lg focus:ring-2 focus:ring-secondaryAccent focus:outline-none resize-none font-mono text-sm"></textarea>
                 <div class="text-xs text-textMuted mt-2 flex justify-around">
                     <span>Chars: <b x-text="stats1.chars">0</b></span>
                     <span>Words: <b x-text="stats1.words">0</b></span>
@@ -73,10 +101,20 @@
             <div class="bg-primaryAccent rounded-custom shadow-custom p-4 flex flex-col">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold">Modified Text</h2>
-                     <input type="file" @change="handleFileUpload($event, 'text2')" accept=".txt" class="text-xs">
+                    <label
+                        class="cursor-pointer flex items-center gap-2 border border-secondaryAccent text-secondaryAccent px-3 py-1 rounded-md hover:bg-secondaryAccent hover:text-white transition-colors text-xs uppercase tracking-wide font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        Upload
+                        <input type="file" @change="handleFileUpload($event, 'text2')" class="hidden">
+                    </label>
                 </div>
-                <textarea x-model="text2" rows="15" class="w-full flex-grow p-3 bg-bgColor rounded-lg focus:ring-2 focus:ring-secondaryAccent focus:outline-none resize-none font-mono text-sm"></textarea>
-                 <div class="text-xs text-textMuted mt-2 flex justify-around">
+                <textarea x-model="text2" rows="15"
+                    class="w-full flex-grow p-3 bg-bgColor rounded-lg focus:ring-2 focus:ring-secondaryAccent focus:outline-none resize-none font-mono text-sm"></textarea>
+                <div class="text-xs text-textMuted mt-2 flex justify-around">
                     <span>Chars: <b x-text="stats2.chars">0</b></span>
                     <span>Words: <b x-text="stats2.words">0</b></span>
                     <span>Lines: <b x-text="stats2.lines">0</b></span>
@@ -84,29 +122,46 @@
             </div>
         </div>
 
-        <div class="bg-primaryAccent rounded-custom shadow-custom p-4 my-6 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:flex lg:justify-around gap-4 items-center">
-             <div class="col-span-2 md:col-span-2 lg:col-auto">
+        <div
+            class="bg-primaryAccent rounded-custom shadow-custom p-4 my-6 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:flex lg:justify-around gap-4 items-center">
+            <div class="col-span-2 md:col-span-2 lg:col-auto">
                 <label class="text-xs font-bold text-textMuted">Granularity</label>
                 <div class="flex bg-bgColor rounded-lg p-1 mt-1">
-                    <button @click="options.granularity = 'character'" :class="{'bg-secondaryAccent text-white': options.granularity === 'character'}" class="flex-1 text-sm py-1 px-2 rounded-md transition">Char</button>
-                    <button @click="options.granularity = 'word'" :class="{'bg-secondaryAccent text-white': options.granularity === 'word'}" class="flex-1 text-sm py-1 px-2 rounded-md transition">Word</button>
-                    <button @click="options.granularity = 'line'" :class="{'bg-secondaryAccent text-white': options.granularity === 'line'}" class="flex-1 text-sm py-1 px-2 rounded-md transition">Line</button>
+                    <button @click="options.granularity = 'character'"
+                        :class="{'bg-secondaryAccent text-white': options.granularity === 'character'}"
+                        class="flex-1 text-sm py-1 px-2 rounded-md transition">Char</button>
+                    <button @click="options.granularity = 'word'"
+                        :class="{'bg-secondaryAccent text-white': options.granularity === 'word'}"
+                        class="flex-1 text-sm py-1 px-2 rounded-md transition">Word</button>
+                    <button @click="options.granularity = 'line'"
+                        :class="{'bg-secondaryAccent text-white': options.granularity === 'line'}"
+                        class="flex-1 text-sm py-1 px-2 rounded-md transition">Line</button>
                 </div>
             </div>
             <div class="col-span-2 md:col-span-2 lg:col-auto">
                 <label class="text-xs font-bold text-textMuted">View Mode</label>
                 <div class="flex bg-bgColor rounded-lg p-1 mt-1">
-                    <button @click="options.viewMode = 'side-by-side'" :class="{'bg-secondaryAccent text-white': options.viewMode === 'side-by-side'}" class="flex-1 text-sm py-1 px-2 rounded-md transition">Side-by-Side</button>
-                    <button @click="options.viewMode = 'unified'" :class="{'bg-secondaryAccent text-white': options.viewMode === 'unified'}" class="flex-1 text-sm py-1 px-2 rounded-md transition">Unified</button>
+                    <button @click="options.viewMode = 'side-by-side'"
+                        :class="{'bg-secondaryAccent text-white': options.viewMode === 'side-by-side'}"
+                        class="flex-1 text-sm py-1 px-2 rounded-md transition">Side-by-Side</button>
+                    <button @click="options.viewMode = 'unified'"
+                        :class="{'bg-secondaryAccent text-white': options.viewMode === 'unified'}"
+                        class="flex-1 text-sm py-1 px-2 rounded-md transition">Unified</button>
                 </div>
             </div>
             <div class="flex flex-col space-y-2 col-span-1 md:col-span-1 lg:col-auto">
-                <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" x-model="options.isCaseSensitive" class="mr-2 rounded text-secondaryAccent focus:ring-secondaryAccent"> Case Sensitive</label>
-                <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" x-model="options.ignoreWhitespace" class="mr-2 rounded text-secondaryAccent focus:ring-secondaryAccent"> Ignore Whitespace</label>
+                <label class="flex items-center text-sm cursor-pointer"><input type="checkbox"
+                        x-model="options.isCaseSensitive"
+                        class="mr-2 rounded text-secondaryAccent focus:ring-secondaryAccent"> Case Sensitive</label>
+                <label class="flex items-center text-sm cursor-pointer"><input type="checkbox"
+                        x-model="options.ignoreWhitespace"
+                        class="mr-2 rounded text-secondaryAccent focus:ring-secondaryAccent"> Ignore Whitespace</label>
             </div>
             <div class="flex flex-col space-y-2 col-span-1 md:col-span-1 lg:col-auto">
-                 <button @click="compareTexts" class="w-full bg-secondaryAccent text-white font-bold py-2 px-6 rounded-lg shadow-md hover:opacity-90 transition">Compare</button>
-                 <button @click="resetAll" class="w-full bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-gray-600 transition">Reset</button>
+                <button @click="compareTexts"
+                    class="w-full bg-secondaryAccent text-white font-bold py-2 px-6 rounded-lg shadow-md hover:opacity-90 transition">Compare</button>
+                <button @click="resetAll"
+                    class="w-full bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-gray-600 transition">Reset</button>
             </div>
         </div>
 
@@ -117,7 +172,9 @@
                     <span>Similarity: <b class="text-textColor" x-text="results.stats.similarity + '%'"></b></span>
                     <span class="text-green-400">Added: <b x-text="results.stats.added"></b></span>
                     <span class="text-red-400">Removed: <b x-text="results.stats.removed"></b></span>
-                    <button @click="exportResults" class="text-xs bg-bgColor py-1 px-3 rounded-md hover:bg-secondaryAccent hover:text-white transition">Export .txt</button>
+                    <button @click="exportResults"
+                        class="text-xs bg-bgColor py-1 px-3 rounded-md hover:bg-secondaryAccent hover:text-white transition">Export
+                        .txt</button>
                 </div>
             </div>
             <div x-show="options.viewMode === 'unified'">
@@ -132,4 +189,5 @@
 
     <script src="scripts.js"></script>
 </body>
+
 </html>
